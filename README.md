@@ -24,13 +24,6 @@ This repository contains runbooks for the AWS DevOps Agent to use during inciden
 - Include example queries that work in your environment
 - Document the "happy path" queries first, edge cases later
 
-## Per-Brand Customization
-
-For UK and Ireland brands, consider:
-- Creating brand-specific topology files if services differ
-- Using environment labels to distinguish between brands
-- Documenting any brand-specific alerting thresholds
-
 ## Runbook Types
 
 | Runbook | Purpose |

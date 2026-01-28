@@ -4,10 +4,6 @@
 
 This runbook contains guidance on how to search Slack for relevant context during incident investigation.
 
-## Connection Details
-
-- Slack Workspace: `company.slack.com`
-- Incident Channel Naming: `#incident-<date>-<short-description>`
 
 ## Key Channels
 
@@ -26,14 +22,6 @@ Search in #alerts channel for related notifications:
 ```
 in:#alerts <service-name>
 in:#alerts <error-message>
-```
-
-### Search for Recent Deployments
-
-Search in #deployments for recent releases:
-```
-in:#deployments <service-name>
-in:#deployments deployed after:2024-01-15
 ```
 
 ### Search for Related Discussions

@@ -6,12 +6,11 @@ This runbook contains guidance on how to query logs stored in Loki via Grafana.
 
 ## Connection Details
 
-- Grafana URL: `https://grafana.example.com`
 - Loki datasource name: `loki-prod`
 
 ## Per Resource Queries
 
-### ECS Service Logs
+### EC2 Service Logs
 
 To find logs for an ECS service:
 ```logql
@@ -28,17 +27,6 @@ To parse JSON logs and filter:
 {app="<service-name>"} | json | level="error"
 ```
 
-### Lambda Function Logs
-
-To find logs for a Lambda function:
-```logql
-{function_name="<function-name>"}
-```
-
-To find cold starts:
-```logql
-{function_name="<function-name>"} |= "INIT_START"
-```
 
 ## Common Labels
 
@@ -47,7 +35,7 @@ To find cold starts:
 | app | Application/service name | `example-api` |
 | environment | Deployment environment | `prod`, `staging` |
 | function_name | Lambda function name | `example-worker` |
-| container_name | ECS container name | `app`, `sidecar` |
+| ec2 | ec2 tag values for service-name | `app` |
 
 ## Log Patterns to Search
 
@@ -58,9 +46,3 @@ To find cold starts:
 | `timeout` | Timeout-related issues |
 | `connection refused` | Network/connectivity issues |
 | `OOM` | Out of memory errors |
-
-## Time Range Guidance
-
-- Start with 15 minutes before the incident alert time
-- Expand to 1 hour if root cause not found
-- Use line limit of 1000 initially to avoid overwhelming context

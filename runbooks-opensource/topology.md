@@ -25,4 +25,3 @@ This runbook contains relationships between AWS resources and telemetry provider
 
 - Add rows for each service your team owns
 - Include the exact job/label names used in Prometheus for quick correlation
-- Document any custom exporters or sidecars deployed alongside services

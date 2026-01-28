@@ -6,7 +6,6 @@ This runbook contains guidance on how to search GitHub for changes during an inc
 
 ## Connection Details
 
-- GitHub Organization: `company-org`
 - Key Repositories: `example-api`, `example-worker`, `infrastructure`
 
 ## Workflows

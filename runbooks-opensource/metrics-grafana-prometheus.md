@@ -6,7 +6,6 @@ This runbook contains guidance on how to query metrics stored in Prometheus.
 
 ## Connection Details
 
-- Grafana URL: `https://grafana.example.com`
 - Prometheus datasource name: `prometheus-prod`
 
 ## Per Resource Queries
@@ -16,7 +15,7 @@ This runbook contains guidance on how to query metrics stored in Prometheus.
 To find CPU/Memory for an ECS service:
 ```promql
 # CPU Usage
-rate(container_cpu_usage_seconds_total{job="ecs-<service-name>"}[5m])
+rate(container_cpu_usage_seconds_total{job="ecs-<service-name>"}{[5m]})
 
 # Memory Usage
 container_memory_usage_bytes{job="ecs-<service-name>"}
@@ -55,4 +54,4 @@ aws_rds_cpuutilization{dbinstance_identifier="<db-name>"}
 ## Time Range Guidance
 
 - For P1 incidents, start with last 1 hour, then expand to 24 hours if needed
-- Use `[5m]` rate windows for smooth graphs, `[1m]` for granular analysis
+- Use `[5m]` rate windows for smooth graphs, `[1m]` for granular analysis. Ask which the user prefers.

@@ -6,7 +6,6 @@ This runbook contains guidance on how to search Jira for issues that were resolv
 
 ## Connection Details
 
-- Jira URL: `https://company.atlassian.net`
 - Project keys: `OPS`, `DEV`, `INFRA`
 
 ## Workflows

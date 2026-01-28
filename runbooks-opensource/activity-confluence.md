@@ -6,7 +6,6 @@ This runbook contains guidance on how to search Confluence for relevant document
 
 ## Connection Details
 
-- Confluence URL: `https://company.atlassian.net/wiki`
 - Key Spaces: `OPS` (Operations), `ENG` (Engineering), `ARCH` (Architecture)
 
 ## Workflows

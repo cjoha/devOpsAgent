@@ -1,6 +1,6 @@
 # Open Source Telemetry Runbooks
 
-This folder contains runbooks for open source telemetry providers (Grafana, Prometheus, Loki).
+This folder contains runbooks for open source telemetry providers (Grafana, Prometheus, Loki). This is for reference only. Do not add this file to DevOps Agent.
 
 ## Runbook Structure
 
