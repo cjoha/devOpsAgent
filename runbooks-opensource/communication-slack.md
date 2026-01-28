@@ -37,7 +37,7 @@ from:@oncall-bot
 When posting incident updates:
 ```
 🔴 *Incident Update*
-*Status*: Investigating / Identified / Monitoring / Resolved
+*Status*: Investigating / Identified / Monitoring / Building Root Cause / Completed Investigation 
 *Impact*: <description of user impact>
 *Services*: <affected services>
 *Current Actions*: <what's being done>
