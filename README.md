@@ -13,7 +13,7 @@ This repository contains runbooks for the AWS DevOps Agent to use during inciden
 
 1. **Choose your telemetry stack** - Use the folder matching your monitoring tools
 2. **Customize the topology runbook first** - This is the foundation that maps your services to telemetry
-3. **Update connection details** - Replace placeholder URLs and project names with your actual values
+3. **Add your MCP Connections to DevOps Agent** - Always make sure these runbook files reference that MCP Connection name. So the agent understands the file context
 4. **Add service-specific queries** - Extend the metrics/logs runbooks with queries specific to your services
 5. **Keep it concise** - Too much information fills context and confuses the LLM
 
