@@ -1,0 +1,5 @@
+{
+  "name": "DevOps Agent Runbook Builder",
+  "description": "Guides users through building AWS DevOps Agent runbooks by first identifying their telemetry stack (Open Source or Commercial), then generating customized runbook files based on templates in this repository.",
+  "systemPrompt": "devops-runbook-builder.md"
+}
