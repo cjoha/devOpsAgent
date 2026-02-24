@@ -8,8 +8,9 @@ Reference: https://docs.aws.amazon.com/devopsagent/latest/userguide/about-aws-de
 
 ## Important Constraints
 
-- Target 5 minutes of user time. Ask the minimum needed.
-- Ask questions in a single batch per phase. Never ask one question at a time.
+- Target 5-10 minutes of user time. Ask the minimum needed.
+- Walk through each section one at a time. Do NOT dump all questions on the user at once.
+- After each section, wait for the user's answer before moving to the next.
 - The DevOps Agent discovers AWS resources automatically. Do NOT ask users to enumerate every service and resource. Focus only on how those resources map to third-party telemetry.
 - These runbooks steer an LLM. They should be concise hints, not exhaustive playbooks.
 - Generate files into the user's workspace under a `runbooks/` directory.
@@ -19,60 +20,78 @@ Reference: https://docs.aws.amazon.com/devopsagent/latest/userguide/about-aws-de
 
 ### Phase 1: Telemetry Stack
 
-Start here. Simple choice, no fluff:
+Start here. One question only:
 
 > Which telemetry stack does your team use?
 > 1. **Open Source** — Grafana, Prometheus, Loki
 > 2. **Commercial** — Splunk, Datadog, New Relic, or Dynatrace
->
-> And which of these do you use for activity tracking and communication?
+
+If they pick Commercial, follow up with which specific platform (Splunk, Datadog, New Relic, or Dynatrace). Wait for their answer before continuing.
+
+### Phase 2: Activity & Communication Tools
+
+After the telemetry stack is confirmed, ask:
+
+> Which of these do you use for activity tracking and communication?
 > - Jira / GitHub / Confluence / Slack
 >
-> (Just list the ones you use, e.g. "Open Source, Jira, GitHub, Slack")
+> (Just list the ones you use, or say "all")
 
-If they pick Commercial, ask which specific platform (Splunk, Datadog, New Relic, or Dynatrace).
+Wait for their answer before continuing.
 
-### Phase 2: Key Identifiers
+### Phase 3: Observability Details
 
-This is a lightweight pass. You only need the details that the DevOps Agent can't discover on its own — specifically, how to find telemetry in third-party systems.
+Ask about the telemetry stack connection details. This is one focused section — just the observability tool.
 
 **For Open Source (Grafana/Prometheus/Loki), ask:**
-> A few quick details so the runbooks point the agent to the right places:
+> Let's start with your Grafana/Prometheus/Loki setup:
 >
-> 1. **Prometheus datasource name** in Grafana (default: `prometheus-prod`)
-> 2. **Loki datasource name** in Grafana (default: `loki-prod`)
-> 3. **Key labels** your team uses in Prometheus/Loki to identify services (e.g., `job`, `app`, `service`, `environment`) — or just confirm the defaults are fine
-> 4. **Naming convention** for Prometheus jobs — e.g., `ecs-<service-name>`, `lambda-<function-name>`, or something custom?
+> 1. **Prometheus datasource name** in Grafana? (default: `prometheus-prod`)
+> 2. **Loki datasource name** in Grafana? (default: `loki-prod`)
+> 3. **Key labels** used to identify services? (e.g., `job`, `app`, `service`, `environment`) — or confirm defaults are fine
+> 4. **Naming convention** for Prometheus jobs? (e.g., `ecs-<service-name>`, `lambda-<function-name>`)
 >
-> For your activity tools:
-> - **Jira** project keys (e.g., `OPS`, `DEV`)
-> - **GitHub** org/repos (e.g., `my-org/my-repo`)
-> - **Confluence** space keys (e.g., `OPS`, `ENG`)
-> - **Slack** key channels (e.g., `#incidents`, `#alerts`)
->
-> Defaults are fine for anything you're not sure about — you can always update later.
+> "Defaults are fine" is a perfectly good answer here.
 
 **For Splunk, ask:**
-> Quick details for the runbooks:
-> 1. **Index names** for logs and metrics
-> 2. **Sourcetype naming convention** (e.g., `aws:cloudwatch:logs`, custom sourcetypes)
+> Let's start with your Splunk setup:
+> 1. **Index names** for logs and metrics?
+> 2. **Sourcetype naming convention**? (e.g., `aws:cloudwatch:logs`, custom sourcetypes)
 > 3. Any **saved searches or macros** the agent should know about?
 
 **For Datadog, ask:**
-> Quick details for the runbooks:
-> 1. **Service names** as they appear in Datadog APM
-> 2. **Key tags** used for filtering (e.g., `env:prod`, `service:<name>`)
-> 3. **Log index names** if not using the default
+> Let's start with your Datadog setup:
+> 1. **Service names** as they appear in Datadog APM?
+> 2. **Key tags** used for filtering? (e.g., `env:prod`, `service:<name>`)
+> 3. **Log index names** if not using the default?
 
 **For New Relic, ask:**
-> Quick details for the runbooks:
-> 1. **Application names** as they appear in New Relic APM
-> 2. **Key custom attributes** used for filtering
+> Let's start with your New Relic setup:
+> 1. **Application names** as they appear in New Relic APM?
+> 2. **Key custom attributes** used for filtering?
 > 3. Any **NRQL queries** the agent should know about?
 
-Accept "defaults are fine" as a complete answer for any section.
+Wait for the user's response before continuing.
 
-### Phase 3: File Generation
+### Phase 4: Activity Tool Details
+
+After the observability section is answered, move to activity tools. Ask ONLY about the tools the user selected in Phase 2, one section at a time. Present each tool as its own small block and wait for the answer before moving to the next.
+
+**Jira (if selected):**
+> Now for Jira — what project keys should the agent search? (e.g., `OPS`, `DEV`, `INFRA`)
+
+**GitHub (if selected):**
+> GitHub — what org and repo names? (e.g., `my-org/order-api`, `my-org/infrastructure`)
+
+**Confluence (if selected):**
+> Confluence — what space keys? (e.g., `OPS`, `ENG`, `ARCH`)
+
+**Slack (if selected):**
+> Slack — what are your key channels? (e.g., `#incidents`, `#deployments`, `#alerts`)
+
+You can combine 2 tools per message if they're simple (e.g., Jira + GitHub, or Confluence + Slack), but never more than 2. Accept "defaults are fine" for any section.
+
+### Phase 5: File Generation
 
 Once you have the answers, generate the runbook files. Read the corresponding template files from the repository first, then customize with the user's values.
 
@@ -92,14 +111,14 @@ Once you have the answers, generate the runbook files. Read the corresponding te
 - Slack → `runbooks/communication-slack.md`
 
 **File generation rules:**
-1. Read the template from `runbooks-opensource/` or `runbooks-commercial/`
+1. Read the template from `runbooks-opensource/` (or `runbooks-commercial/` if templates exist there for the chosen platform). If no commercial template exists, use the open-source template as the structural basis and adapt the query syntax for the commercial platform.
 2. Replace example/placeholder values with the user's actual values
 3. Keep the blockquote description at the top (DevOps Agent uses this to decide when to consult the runbook)
 4. Keep it concise — these steer an LLM, not a human. The agent is smart enough to figure things out with hints.
 5. Where the user said "defaults are fine", use the template defaults as-is
 6. Do NOT pad files with excessive examples or boilerplate
 
-### Phase 4: Summary
+### Phase 6: Summary
 
 Brief summary after generation:
 - List the files created

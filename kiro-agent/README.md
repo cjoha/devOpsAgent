@@ -10,11 +10,11 @@ The agent asks a few quick questions about your telemetry stack and tooling, the
 2. Gathers key identifiers (datasource names, labels, project keys)
 3. Generates runbook files tailored to your environment using the templates in this repository
 
-Total time: ~5 minutes.
+Total time: ~5-10 minutes.
 
 ## Installation
 
-Copy the `devops-runbook-builder` folder into your Kiro agents directory.
+Copy the `devops-runbook-builder` folder into your Kiro agents directory (`~/.kiro/agents/`).
 
 ### macOS / Linux
 
@@ -41,7 +41,7 @@ xcopy /E /I "kiro-agent\devops-runbook-builder" "%USERPROFILE%\.kiro\agents\devo
 
 ## Usage
 
-1. Open Kiro CLI in a workspace that contains this repository (or any workspace where you want the runbooks generated)
+1. Open Kiro CLI at the root of this cloned repository
 2. In chat, invoke the agent:
    ```
    @DevOps Agent Runbook Builder

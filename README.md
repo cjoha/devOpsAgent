@@ -17,6 +17,12 @@ This repository contains runbooks for the AWS DevOps Agent to use during inciden
 4. **Add service-specific queries** - Extend the metrics/logs runbooks with queries specific to your services
 5. **Keep it concise** - Too much information fills context and confuses the LLM
 
+## Kiro CLI Custom Agent
+
+This repository includes a [Kiro CLI](https://kiro.dev) custom agent that automates runbook generation. Instead of manually copying and editing templates, the agent walks you through a short Q&A (~5-10 minutes) and generates customized runbook files for your environment.
+
+See [`kiro-agent/README.md`](./kiro-agent/README.md) for installation and usage instructions.
+
 ## Best Practices
 
 - Start minimal, add detail as you learn what the agent needs
